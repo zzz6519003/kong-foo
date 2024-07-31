@@ -1,0 +1,27 @@
+[package]
+name = "collectibles"
+version = "0.1.0"
+authors.workspace = true
+edition.workspace = true
+repository.workspace = true
+license.workspace = true
+homepage.workspace = true
+
+[dependencies]
+# frame-support = { default-features = false, version = "4.0.0-dev", git = "https://github.com/paritytech/polkadot.git", branch = "release-v1.0.0"}
+# frame-system = { default-features = false, version = "4.0.0-dev", git = "https://github.com/paritytech/polkadot.git", branch = "release-v1.0.0" }
+frame-support = { version = "36.0.0", default-features = false }
+frame-system = { version = "36.0.0", default-features = false }
+codec = { package = "parity-scale-codec", version = "3.0.0", default-features = false, features = ["derive",] }
+scale-info = { version = "2.1.1", default-features = false, features = ["derive"] }
+[lints]
+workspace = true
+
+[features]
+default = ["std"]
+std = [
+  "frame-support/std",
+  "frame-system/std",
+  "codec/std",
+  "scale-info/std",
+]

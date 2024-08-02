@@ -35,6 +35,7 @@ use core::marker::PhantomData;
 /// Weight functions needed for pallet_template.
 pub trait WeightInfo {
 	fn do_something() -> Weight;
+	fn do_nothing() -> Weight;
 	fn cause_error() -> Weight;
 }
 
@@ -50,6 +51,10 @@ impl<T: frame_system::Config> WeightInfo for SubstrateWeight<T> {
 		// Minimum execution time: 8_000_000 picoseconds.
 		Weight::from_parts(9_000_000, 0)
 			.saturating_add(T::DbWeight::get().writes(1_u64))
+	}
+	fn do_nothing() -> Weight {
+		Weight::from_parts(9_000_000, 0)
+		.saturating_add(T::DbWeight::get().writes(1_u64))
 	}
 	/// Storage: TemplateModule Something (r:1 w:1)
 	/// Proof: TemplateModule Something (max_values: Some(1), max_size: Some(4), added: 499, mode: MaxEncodedLen)
@@ -73,6 +78,10 @@ impl WeightInfo for () {
 		//  Measured:  `0`
 		//  Estimated: `0`
 		// Minimum execution time: 8_000_000 picoseconds.
+		Weight::from_parts(9_000_000, 0)
+			.saturating_add(RocksDbWeight::get().writes(1_u64))
+	}
+	fn do_nothing() -> Weight {
 		Weight::from_parts(9_000_000, 0)
 			.saturating_add(RocksDbWeight::get().writes(1_u64))
 	}

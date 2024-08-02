@@ -198,5 +198,12 @@ pub mod pallet {
 				},
 			}
 		}
+
+		#[pallet::call_index(2)]
+		#[pallet::weight(T::WeightInfo::do_nothing())]
+		pub fn do_nothing(origin: OriginFor<T>) -> DispatchResult {
+			Ok(())
+		}
+
 	}
 }

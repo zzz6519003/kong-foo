@@ -113,6 +113,9 @@ pub mod pallet {
 			/// The account who set the new value.
 			who: T::AccountId,
 		},
+		NothingStored {
+			who: T::AccountId,
+		},
 	}
 
 	/// Errors that can be returned by this pallet.
@@ -202,6 +205,14 @@ pub mod pallet {
 		#[pallet::call_index(2)]
 		#[pallet::weight(T::WeightInfo::do_nothing())]
 		pub fn do_nothing(origin: OriginFor<T>) -> DispatchResult {
+			// Check that the extrinsic was signed and get the signer.
+			let who = ensure_signed(origin)?;
+
+			// // Update storage.
+			// Something::<T>::put(something);
+
+			// Emit an event.
+			Self::deposit_event(Event::NothingStored { who });			
 			Ok(())
 		}
 

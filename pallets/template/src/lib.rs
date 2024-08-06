@@ -93,6 +93,9 @@ pub mod pallet {
 	#[pallet::storage]
 	pub type Something<T> = StorageValue<_, u32>;
 
+	#[pallet::storage]
+	pub type LoveMessage<T> = StorageValue<_, u32>;
+
 	/// Events that functions in this pallet can emit.
 	///
 	/// Events are a simple means of indicating to the outside world (such as dApps, chain explorers
@@ -213,6 +216,23 @@ pub mod pallet {
 
 			// Emit an event.
 			Self::deposit_event(Event::NothingStored { who });			
+			Ok(())
+		}
+
+		#[pallet::call_index(3)]
+		#[pallet::weight(T::WeightInfo::store_love())]
+		pub fn store_love(origin: OriginFor<T>) -> DispatchResult {
+			// Check that the extrinsic was signed and get the signer.
+			let who = ensure_signed(origin)?;
+
+			let love_message: u32 = 520;
+			// Update storage.
+			LoveMessage::<T>::put(love_message);
+
+			// Emit an event.
+			Self::deposit_event(Event::SomethingStored { something: love_message, who });
+
+			// Return a successful `DispatchResult`
 			Ok(())
 		}
 
